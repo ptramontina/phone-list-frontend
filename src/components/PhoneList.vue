@@ -7,7 +7,9 @@
     </section>
 
     <div class="columns">
-      <phone v-for="(phone, index) in phoneList" :key="index" :phone="phone"></phone>
+      <div class="column is-full" v-for="(phone, index) in phoneList" :key="index">
+        <phone :data="phone"></phone>
+      </div>
     </div>
   </div>
 </template>
@@ -25,17 +27,31 @@ export default {
     return {
       phoneList: [
         {
-          'name': 'User 1',
-          'company': 'Company 1',
-          'items': [
+          name: "User 1",
+          company: "Company 1",
+          items: [
             {
-              'item-name': 'Address',
-              'item-value': 'Montebyr St.'
+              item_name: "Address",
+              item_value: "Montebyr St."
+            },
+            {
+              item_name: "Phone",
+              item_value: "412"
+            }
+          ]
+        },
+        {
+          name: "User 2",
+          company: "Company 2",
+          items: [
+            {
+              item_name: "Address",
+              item_value: "Montebyr St."
             }
           ]
         }
       ]
-    }
+    };
   }
 };
 </script>

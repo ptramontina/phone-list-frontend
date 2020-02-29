@@ -1,17 +1,17 @@
 <template>
-  <div class="column is-offset-2 is-8">
+  <div>
     <article class="message">
       <div class="message-header">
-        <p>{{data}}</p>
-        <!-- <p>{{data.company}}</p> -->
+        <p>{{data.name}}</p>
+        <p>{{data.company}}</p>
       </div>
-      <!-- <div class="message-body">
+      <div class="message-body">
         <div class="level">
           <div class="level-item" v-for="(item, index) in data.items" :key="index">
-            {{item.item-name}}:{{item.item-value}}
+            {{item.item_name}}: {{item.item_value}}
           </div>
         </div>
-      </div> -->
+      </div>
     </article>
   </div>
 </template>
