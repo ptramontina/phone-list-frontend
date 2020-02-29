@@ -6,8 +6,8 @@
       </div>
     </section>
 
-    <div class="columns">
-      <div class="column is-full" v-for="(phone, index) in phoneList" :key="index">
+    <div class="columns" v-for="(phone, index) in phoneList" :key="index">
+      <div class="column is-offset-2 is-8">
         <phone :data="phone"></phone>
       </div>
     </div>
@@ -31,6 +31,7 @@ export default {
           company: "Company 1",
           items: [
             {
+              item_icon: 'fas fa-phone',
               item_name: "Address",
               item_value: "Montebyr St."
             },

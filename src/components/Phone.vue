@@ -8,7 +8,7 @@
       <div class="message-body">
         <div class="level">
           <div class="level-item" v-for="(item, index) in data.items" :key="index">
-            {{item.item_name}}: {{item.item_value}}
+            <i v-if="item.item_icon" :class="[item.item_icon]"></i>: {{item.item_value}}
           </div>
         </div>
       </div>
