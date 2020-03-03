@@ -1,4 +1,5 @@
-# phone-list-frontend
+# Phone List
+This is a small project built using VueJS, to provide a simple phone list.
 
 ## Project setup
 ```
