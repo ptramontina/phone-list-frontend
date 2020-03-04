@@ -64,7 +64,16 @@
 </template>
 
 <script>
+import axios from '../http/http'
 export default {
+
+    mounted() {
+        axios.get('http://google.com.br')
+        .then(res => {
+            console.log(res)
+        })
+        .catch(err => console.log(err))
+    }
 
 }
 </script>
