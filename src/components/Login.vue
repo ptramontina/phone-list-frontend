@@ -71,7 +71,7 @@
 
 <script>
 import axios from "../http/http"
-import { storeToken } from "../helpers/localStorage"
+import { storeToken } from "../helpers/local-storage"
 
 export default {
   data() {

@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import { getToken } from './helpers/localStorage'
+import { getToken } from './helpers/local-storage'
 
 import Application from './components/Application'
 import Login from './components/Login'

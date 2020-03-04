@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { removeToken } from '../helpers/localStorage'
+import { removeToken } from '../helpers/local-storage'
 export default {
   methods: {
     logOut() {
