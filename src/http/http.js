@@ -4,7 +4,7 @@ import { authHeader } from '../helpers/auth-header'
 let skippedUrls = ['autenticar']
 
 const instance = axios.create({
-    baseURL: 'http://fabrica-racao-cosuel.test/api/',
+    baseURL: 'http://base.test/api/',
     responseType: 'json',
     headers: { 'Content-Type': 'application/json' },
 })
