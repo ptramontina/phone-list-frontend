@@ -1,28 +1,39 @@
 import axios from 'axios'
+import { authHeader } from '../helpers/auth-header'
+
+let skippedUrls = ['autenticar']
 
 const instance = axios.create({
-    baseURL: 'https://some-domain.com/api/',
-    timeout: 1000,
-    headers: {'X-Custom-Header': 'foobar'}
+    baseURL: 'http://fabrica-racao-cosuel.test/api/',
+    responseType: 'json',
+    headers: { 'Content-Type': 'application/json' },
 })
 
-instance.interceptors.request.use(config => {
+instance.interceptors.request.use(
+  (request) => {
     console.log('request')
-    console.log(config)
-    return config
-}, error => {
+    console.log(request)
+    if (!skippedUrls.includes(request.url)) {
+      console.log('add header')
+      request.headers['Authorization'] = 'Bearer ' + authHeader
+    }
+    return request
+  }, (error) => {
+    console.log('erro request')
     return Promise.reject(error)
 })
 
-axios.interceptors.response.use(function (response) {
+instance.interceptors.response.use((response) => {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
     console.log('resposta')
     console.log(response)
     return response;
-  }, function (error) {
+  }, (error) => {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
+    console.log('erro resposta')
+    console.log(error.response)
     return Promise.reject(error);
   });
 
