@@ -12,7 +12,7 @@ const instance = axios.create({
 instance.interceptors.request.use(
   (request) => {
     if (!skippedUrls.includes(request.url)) {
-      request.headers['Authorization'] = 'Bearer ' + authHeader
+      request.headers['Authorization'] = authHeader()
     }
     return request
   }, (error) => {

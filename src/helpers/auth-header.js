@@ -1,10 +1,14 @@
+import { getToken } from "../helpers/local-storage"
+
 export function authHeader() {
     // return authorization header with jwt token
-    let user = JSON.parse(localStorage.getItem('user'))
+    let token = getToken()
 
-    if (user && user.token) {
-        return { 'Authorization': 'Bearer ' + user.token }
+    if (token) {
+        // return { 'Authorization': 'Bearer ' + token }
+        return 'Bearer ' + token
     } else {
-        return {}
+        // return {}
+        return ''
     }
 }
