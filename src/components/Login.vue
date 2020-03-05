@@ -40,10 +40,17 @@
                   />
                 </div>
               </div>
-              <div v-show="invalidCredentials" class="field">
+              <div v-if="invalidCredentials" class="field">
                 <div class="control has-text-centered">
-                  <span class="has-text-danger" role="alert">
-                    <strong>Invalid credentials</strong>
+                  <span role="alert">
+                    <strong class="has-text-danger">Invalid credentials</strong>
+                  </span>
+                </div>
+              </div>
+              <div v-else-if="loginError" class="field">
+                <div class="control has-text-centered has-text-danger">
+                  <span role="alert">
+                    <strong class="has-text-danger">Login error</strong>
                   </span>
                 </div>
               </div>
@@ -79,6 +86,7 @@ export default {
       login: '',
       password: '',
       invalidCredentials: false,
+      loginError: false,
       isLoading: false,
     }
   },
@@ -89,6 +97,7 @@ export default {
 
       this.isLoading = true
       this.invalidCredentials = false
+      this.loginError = false
 
       axios
         .post("autenticar", {
@@ -100,8 +109,11 @@ export default {
           this.$router.push("/")          
         })
         .catch(err => {
+          if (err.response && err.response.code == 401) {
             this.invalidCredentials = true
-            console.log(err)
+          } else {
+            this.loginError = true
+          }
         })
         .finally(()=>this.isLoading = false)
     }
