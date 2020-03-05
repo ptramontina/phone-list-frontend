@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { authHeader } from '../helpers/auth-header'
 
-let skippedUrls = ['autenticar']
+let skippedUrls = process.env.VUE_APP_SKIPPED_AUTH_URLS.split(',')
 
 const instance = axios.create({
     baseURL: 'http://base.test/api/',
