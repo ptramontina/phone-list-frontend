@@ -109,7 +109,7 @@ export default {
           this.$router.push("/")          
         })
         .catch(err => {
-          if (err.response && err.response.status == 401) {
+          if (err.response && err.response.status === 401) {
             this.invalidCredentials = true
           } else {
             this.loginError = true
