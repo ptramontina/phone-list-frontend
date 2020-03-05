@@ -4,7 +4,7 @@ import { authHeader } from '../helpers/auth-header'
 let skippedUrls = process.env.VUE_APP_SKIPPED_AUTH_URLS.split(',')
 
 const instance = axios.create({
-    baseURL: 'http://base.test/api/',
+    baseURL: process.env.VUE_APP_BASE_API,
     responseType: 'json',
     headers: { 'Content-Type': 'application/json' },
 })
