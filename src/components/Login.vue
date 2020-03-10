@@ -100,12 +100,12 @@ export default {
       this.loginError = false
 
       axios
-        .post("autenticar", {
-          usuario: this.login,
+        .post('auth/login', {
+          email: this.login,
           password: this.password
         })
         .then(res => {          
-          storeToken(res.data.token)
+          storeToken(res.data.access_token)
           this.$router.push("/")          
         })
         .catch(err => {

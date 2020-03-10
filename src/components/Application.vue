@@ -18,14 +18,14 @@ export default {
   },
   methods:{
     teste() {
-      axios.get('teste')
+      axios.post('auth/me')
       .then(res => {
         console.log(res)
       })
       .catch(err => console.log(err))
     },
     teste2() {
-      axios.post('refresh')
+      axios.post('auth/refresh')
       .then(res => {
         console.log(res)
       })

@@ -3,6 +3,7 @@ import { authHeader } from '../helpers/auth-header'
 import { removeToken, storeToken } from '../helpers/local-storage'
 
 let skippedUrls = process.env.VUE_APP_SKIPPED_AUTH_URLS.split(',')
+console.log(skippedUrls)
 
 const instance = axios.create({
     baseURL: process.env.VUE_APP_BASE_API,
@@ -29,23 +30,19 @@ instance.interceptors.response.use((response) => {
     
     console.log('original', error.config);
 
-    if (error.config.url != 'login' && error.config.url != 'refresh' && error.response.status === 401 && !error.config._retry) {
+    if (error.config.url != 'auth/login' && error.config.url != 'auth/refresh' && error.response.status === 401 && !error.config._retry) {
         console.log('entrou')
         console.log(error.config)
         error.config._retry = true;
         console.log(error.config)
-        return instance.post('refresh')
+        return instance.post('auth/refresh')
             .then(res => {
                 console.log('entrou refresh')
                 console.log(res)
                 if (res.status === 200) {
                   console.log('entrou 200')
                     // 1) put token to LocalStorage
-                    console.log(res.config.headers['Authorization'])
-                    console.log(res.config.headers.authorization)
-                    console.log(res.config.headers.Authorization)
-                    console.log(res.config.headers.authorization.split(' ')[1])
-                    storeToken(res.config.headers.authorization.split(' ')[1]);
+                    storeToken(res.data.access_token);
  
                     // 2) return originalRequest object with Axios.
                     return instance.request(error.config);
