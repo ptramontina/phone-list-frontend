@@ -13,7 +13,7 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   (request) => {
-    if (request.url != process.env.VUE_APP_LOGIN_FRONTEND_ROUTE) {
+    if (request.url != process.env.VUE_APP_LOGIN_BACKEND_ROUTE) {
       request.headers['Authorization'] = authHeader()
     }
     return request
@@ -32,6 +32,7 @@ instance.interceptors.response.use((response) => {
         error.response.status === 401 && 
         !error.config._retry) {
         error.config._retry = true
+        
         return instance.post(process.env.VUE_APP_REFRESH_BACKEND_ROUTE)
             .then(res => {
                 if (res.status === 200) {
