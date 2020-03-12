@@ -9,7 +9,7 @@ export function login(email, password) {
 }
 
 export function refresh(request) {
-    axios.post(process.env.VUE_APP_REFRESH_BACKEND_ROUTE)
+    return axios.post(process.env.VUE_APP_REFRESH_BACKEND_ROUTE)
         .then(res => {
             storeToken(res.data.access_token)
 
