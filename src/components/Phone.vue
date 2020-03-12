@@ -3,12 +3,12 @@
     <article class="message">
       <div class="message-header">
         <p>{{data.name}}</p>
-        <p>{{data.company}}</p>
+        <p>{{data.company.name}}</p>
       </div>
       <div class="message-body">
         <div class="level">
-          <div class="level-item" v-for="(item, index) in data.items" :key="index">
-            <i v-if="item.item_icon" :class="[item.item_icon]"></i>: {{item.item_value}}
+          <div class="level-item" v-for="(item, index) in data.phones" :key="index">
+            <phone-number :item="item"></phone-number>
           </div>
         </div>
       </div>
@@ -17,9 +17,13 @@
 </template>
 
 <script>
+import PhoneNumber from './PhoneNumber'
 export default {
-  props: ['data']
-};
+  props: ['data'],
+  components: {
+    PhoneNumber
+  }
+}
 </script>
 
 <style>

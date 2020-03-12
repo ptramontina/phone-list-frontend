@@ -15,8 +15,10 @@
 </template>
 
 <script>
-import Search from "./Search";
-import Phone from "./Phone";
+import Search from './Search'
+import Phone from './Phone'
+import axios from '../http/http'
+
 export default {
   components: {
     Search,
@@ -25,34 +27,24 @@ export default {
 
   data() {
     return {
-      phoneList: [
-        {
-          name: "User 1",
-          company: "Company 1",
-          items: [
-            {
-              item_icon: 'fas fa-phone',
-              item_name: "Address",
-              item_value: "Montebyr St."
-            },
-            {
-              item_name: "Phone",
-              item_value: "412"
-            }
-          ]
-        },
-        {
-          name: "User 2",
-          company: "Company 2",
-          items: [
-            {
-              item_name: "Address",
-              item_value: "Montebyr St."
-            }
-          ]
+      phoneList: []
+    }
+  },
+
+  mounted() {
+    this.getPhoneList()
+  },
+
+  methods: {
+    getPhoneList() {
+      axios.get('/get-phone-list')
+      .then(res => {
+        if (res.data.success) {
+          this.phoneList = res.data.phone_list
         }
-      ]
-    };
+      })
+      .catch(err => console.log(err))
+    }
   }
 };
 </script>
