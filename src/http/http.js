@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { authHeader } from '../helpers/auth-header'
-import { removeToken, storeToken } from '../helpers/local-storage'
+import { refresh } from '../helpers/login'
 
 const instance = axios.create({
     baseURL: process.env.VUE_APP_BASE_API,
@@ -33,17 +33,7 @@ instance.interceptors.response.use((response) => {
         !error.config._retry) {
         error.config._retry = true
         
-        return instance.post(process.env.VUE_APP_REFRESH_BACKEND_ROUTE)
-            .then(res => {
-                if (res.status === 200) {
-                    storeToken(res.data.access_token)
- 
-                    return instance.request(error.config)
-                } else {
-                  removeToken()
-                }
-            })
-            .catch(err=> console.log(err))
+        return refresh(error)
     }
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error

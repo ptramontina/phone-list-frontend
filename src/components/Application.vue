@@ -3,7 +3,6 @@
     <navbar></navbar>
     <phone-list></phone-list>
     <a @click="teste" class="button">Teste</a>
-    <a @click="teste2" class="button">Teste2</a>
   </div>
 </template>
 
@@ -18,14 +17,7 @@ export default {
   },
   methods:{
     teste() {
-      axios.post('auth/me')
-      .then(res => {
-        console.log(res)
-      })
-      .catch(err => console.log(err))
-    },
-    teste2() {
-      axios.post('auth/refresh')
+      axios.post('me')
       .then(res => {
         console.log(res)
       })

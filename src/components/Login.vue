@@ -77,8 +77,8 @@
 </template>
 
 <script>
-import axios from "../http/http"
 import { storeToken } from "../helpers/local-storage"
+import { login } from '../helpers/login'
 
 export default {
   data() {
@@ -99,11 +99,7 @@ export default {
       this.invalidCredentials = false
       this.loginError = false
 
-      axios
-        .post('auth/login', {
-          email: this.login,
-          password: this.password
-        })
+      login(this.login, this.password)
         .then(res => {          
           storeToken(res.data.access_token)
           this.$router.push("/")          
