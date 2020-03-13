@@ -102,7 +102,7 @@ export default {
       login(this.login, this.password)
         .then(res => {          
           storeToken(res.data.access_token)
-          this.$router.push("/")          
+          this.$router.push(this.$route.query.redirect || '/')          
         })
         .catch(err => {
           if (err.response && err.response.status === 401) {
