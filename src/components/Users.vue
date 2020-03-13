@@ -1,15 +1,14 @@
 <template>
   <div>
-    <navbar></navbar>
-    <router-view></router-view>
+    Users
   </div>
 </template>
 
 <script>
-import Navbar from './Navbar'
 export default {
+  props: [],
   components: {
-    Navbar,
+    
   }
 }
 </script>
