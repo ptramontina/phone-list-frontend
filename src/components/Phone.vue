@@ -3,7 +3,7 @@
     <article class="message">
       <div class="message-header">
         <p>{{data.name}}</p>
-        <p>{{data.company.name}}</p>
+        <p>{{data.company ? data.company.name : ''}}</p>
       </div>
       <div class="message-body">
         <div class="level">
