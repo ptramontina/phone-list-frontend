@@ -6,7 +6,9 @@ import Application from './components/Application'
 import PhoneList from './components/PhoneList'
 import Login from './components/Login'
 import Phones from './components/Phones'
+
 import Users from './components/Users'
+import User from './components/User'
 
 Vue.use(Router)
 
@@ -32,7 +34,18 @@ export const router = new Router({
         {
           path: '/users', 
           component: Users, 
-          meta: { requiresAuth: true } 
+          meta: { requiresAuth: true },
+        },
+        {
+          path: 'users/create',
+          component: User,
+          meta: {requiresAuth: true}
+        },
+        {
+          path: 'users/:id/edit',
+          component: User,
+          props: true,
+          meta: {requiresAuth: true}
         }
       ]
     }    
