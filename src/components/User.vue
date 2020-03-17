@@ -28,11 +28,11 @@
             <label class="label">Administrator</label>
             <div class="control">
               <label class="radio">
-                <input type="radio" name="question" v-model="admin">
+                <input type="radio" name="question" v-model="admin" :value="true">
                 Yes
               </label>
               <label class="radio">
-                <input type="radio" name="question" v-model="admin">
+                <input type="radio" name="question" v-model="admin" :value="false">
                 No
               </label>
             </div>
