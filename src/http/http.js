@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { authHeader } from '../helpers/auth-header'
 import { refresh } from '../helpers/login'
+import { router } from '../router'
 
 const instance = axios.create({
     baseURL: process.env.VUE_APP_BASE_API,
@@ -34,6 +35,8 @@ instance.interceptors.response.use((response) => {
         error.config._retry = true
         
         return refresh(error)
+    } else if (error.config._retry) {
+      router.push('/login')
     }
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
