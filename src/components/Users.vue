@@ -46,7 +46,7 @@
                     </span>
                   </button>
                   </router-link>
-                  <button class="button is-danger">
+                  <button class="button is-danger" @click.prevent="deleteUser(user.id)">
                     <span class="icon is-small">
                       <i class="fas fa-trash"></i>
                     </span>
@@ -68,7 +68,9 @@ export default {
   props: [],
   data() {
     return {
-      users: []
+      users: [],
+
+      isLoading: false
     }
   },
 
@@ -85,6 +87,16 @@ export default {
         }
       })
       .catch(err => console.log(err))
+    },
+    deleteUser (id) {
+      axios.delete('user/' + id)
+      .then(res => {
+        this.users = this.users.filter(user => user.id !== res.data.user.id)
+      })
+      .catch(err => {
+        console.log(err)
+
+      })
     }
   }
 }

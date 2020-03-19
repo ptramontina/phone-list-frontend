@@ -70,7 +70,7 @@
 
           <div class="field is-grouped">
             <div class="control">
-              <button class="button is-primary" type="submit">Submit</button>
+              <button :class="['button', 'is-primary', isLoading ? 'is-loading' : '']" type="submit">Submit</button>
             </div>
             <div class="control">
               <router-link to="/users">
@@ -102,6 +102,8 @@ export default {
       active: false,
 
       errors: [],
+
+      isLoading: false,
     }
   },
 
@@ -124,7 +126,7 @@ export default {
       }
     },
     submit () {
-
+      this.isLoading = true
       this.errors = []
 
       if (!this.name) {
@@ -142,6 +144,7 @@ export default {
       }
 
       if (this.errors.length > 0) {
+        this.isLoading = false
         return 
       }
 
@@ -153,8 +156,17 @@ export default {
           email: this.email ,
           admin: this.admin ,
           active: this.active,
-          password: this.password
+          password: this.password.length > 0 ? this.password : null
         }
+      })
+      .then(res => {
+        if (res.data.success) {
+          this.$router.push('/users');
+        } 
+      })
+      .catch(err => {
+        console.log(err)
+        this.isLoading = false
       })
 
     },
