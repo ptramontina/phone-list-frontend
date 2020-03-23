@@ -3,84 +3,105 @@
     <div class="container">
       <div class="columns">
         <div class="column">
+          <form @submit.prevent="submitUser">
 
-          <form @submit.prevent="submit">
-          
-          <div class="field">
-            <label class="label">Name</label>
-            <div class="control has-icons-left">
-              <input class="input" type="text" v-model="name">
-              <span class="icon is-small is-left">
-                <i class="fas fa-user"></i>
-              </span>
+            <div class="columns">
+              <div class="column">          
+                <div class="field">
+                  <label class="label">Name</label>
+                  <div class="control has-icons-left">
+                    <input class="input" type="text" v-model="user.name">
+                    <span class="icon is-small is-left">
+                      <i class="fas fa-user"></i>
+                    </span>
+                  </div>
+                  <p v-if="errors.includes('required-name')" class="help is-danger">Name is required</p>
+                </div>
+              </div>
             </div>
-            <p v-if="errors.includes('required-name')" class="help is-danger">Name is required</p>
-          </div>
 
-          <div class="field">
-            <label class="label">Email</label>
-            <div class="control has-icons-left">
-              <input class="input" type="email" v-model="email">
-              <span class="icon is-small is-left">
-                <i class="fas fa-envelope"></i>
-              </span>
+            <div class="columns">
+              <div class="column"> 
+                <div class="field">
+                  <label class="label">Email</label>
+                  <div class="control has-icons-left">
+                    <input class="input" type="email" v-model="user.email">
+                    <span class="icon is-small is-left">
+                      <i class="fas fa-envelope"></i>
+                    </span>
+                  </div>
+                  <p v-if="errors.includes('required-email')" class="help is-danger">Email is required</p>
+                  <p v-else-if="errors.includes('invalid-email')" class="help is-danger">This email is invalid</p>
+                </div>
+              </div>
             </div>
-            <p v-if="errors.includes('required-email')" class="help is-danger">Email is required</p>
-            <p v-else-if="errors.includes('invalid-email')" class="help is-danger">This email is invalid</p>
-          </div>
 
-          <div class="field">
-            <label class="label">Password</label>
-            <div class="control has-icons-left">
-              <input class="input" type="password" v-model="password" :placeholder="isEdit ? 'Leave empty to not change' : ''" :required="!isEdit">
-              <span class="icon is-small is-left">
-                <i class="fas fa-key"></i>
-              </span>
+            <div class="columns">
+              <div class="column"> 
+                <div class="field">
+                  <label class="label">Password</label>
+                  <div class="control has-icons-left">
+                    <input class="input" type="password" v-model="password" :placeholder="isEdit ? 'Leave empty to not change' : ''">
+                    <span class="icon is-small is-left">
+                      <i class="fas fa-key"></i>
+                    </span>
+                  </div>
+                  <p v-if="errors.includes('required-password')" class="help is-danger">Password is required</p>
+                </div>
+              </div>
             </div>
-            <p v-if="errors.includes('required-password')" class="help is-danger">Password is required</p>
-          </div>
 
-          <div class="field">
-            <label class="label">Administrator</label>
-            <div class="control">
-              <label class="radio">
-                <input type="radio" name="admin" v-model="admin" :value="true">
-                Yes
-              </label>
-              <label class="radio">
-                <input type="radio" name="admin" v-model="admin" :value="false">
-                No
-              </label>
-            </div>
-          </div>
+            <div class="columns">
+              <div class="column">               
+                <div class="field">
+                  <label class="label">Administrator</label>
+                  <div class="control">
+                    <label class="radio">
+                      <input type="radio" name="admin" v-model="user.admin" :value="true">
+                      Yes
+                    </label>
+                    <label class="radio">
+                      <input type="radio" name="admin" v-model="user.admin" :value="false">
+                      No
+                    </label>
+                  </div>
+                </div>
+              </div>
 
-          <div class="field">
-            <label class="label">Active</label>
-            <div class="control">
-              <label class="radio">
-                <input type="radio" name="acrive" v-model="active" :value="true">
-                Yes
-              </label>
-              <label class="radio">
-                <input type="radio" name="acrive" v-model="active" :value="false">
-                No
-              </label>
-            </div>
-          </div>
+              <div class="column"> 
+                <div class="field">
+                  <label class="label">Active</label>
+                  <div class="control">
+                    <label class="radio">
+                      <input type="radio" name="acrive" v-model="user.active" :value="true">
+                      Yes
+                    </label>
+                    <label class="radio">
+                      <input type="radio" name="acrive" v-model="user.active" :value="false">
+                      No
+                    </label>
+                  </div>
+                </div>
 
-          <div class="field is-grouped">
-            <div class="control">
-              <button :class="['button', 'is-primary', isLoading ? 'is-loading' : '']" type="submit">Submit</button>
+              </div>
             </div>
-            <div class="control">
-              <router-link to="/users">
-                <button class="button is-link is-light">Cancel</button>
-              </router-link>
+            
+            <div class="columns">
+              <div class="column">
+                <div class="field is-grouped">
+                  <div class="control">
+                    <button :class="['button', 'is-primary', isLoading ? 'is-loading' : '']" type="submit">Submit</button>
+                  </div>
+                  <div class="control">
+                    <router-link to="/users">
+                      <button class="button is-link is-light">Cancel</button>
+                    </router-link>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
 
           </form>
-
 
         </div>
       </div>
@@ -93,16 +114,19 @@ import axios from '../http/http'
 export default {
   props: ['id'],
 
+  components: {},
+
   data() {
     return {
-      name: '',
-      email: '',
+      user: {
+        id: '',
+        name: '',
+        email: '',
+        admin: false,
+        active: false,
+      },
       password: '',
-      admin: false,
-      active: false,
-
       errors: [],
-
       isLoading: false,
     }
   },
@@ -117,25 +141,28 @@ export default {
         axios.get('user/' + this.id)
         .then(res => {
           console.log(res.data)
-          this.name = res.data.user.name
-          this.email = res.data.user.email
-          this.admin = res.data.user.admin
-          this.active = res.data.user.active
+          this.user = {
+            id: res.data.user.id,
+            name: res.data.user.name,
+            email: res.data.user.email,
+            admin: res.data.user.admin,
+            active: res.data.user.active,
+          }
         })
         .catch(err => console.log(err))
       }
     },
-    submit () {
+    submitUser () {
       this.isLoading = true
       this.errors = []
 
-      if (!this.name) {
+      if (!this.user.name) {
         this.errors.push('required-name')
       }
 
-      if (!this.email) {
+      if (!this.user.email) {
         this.errors.push('required-email')
-      } else if (!this.validEmail(this.email)) {
+      } else if (!this.validEmail(this.user.email)) {
         this.errors.push('invalid-email')
       }
 
@@ -147,15 +174,15 @@ export default {
         this.isLoading = false
         return 
       }
-
+      
       axios({
         url: this.isEdit ? '/user/' + this.id : '/user',
         method: this.isEdit ? 'put' : 'post',
         data: {
-          name: this.name,
-          email: this.email ,
-          admin: this.admin ,
-          active: this.active,
+          name: this.user.name,
+          email: this.user.email ,
+          admin: this.user.admin ,
+          active: this.user.active,
           password: this.password.length > 0 ? this.password : null
         }
       })
