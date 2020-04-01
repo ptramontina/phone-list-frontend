@@ -28,7 +28,7 @@
                     <th></th>
                   </tr>
                 </thead>
-                <tbody v-if="phones.lenght > 0">
+                <tbody v-if="phones.length > 0">
                   <tr v-for="(phone, index) in phones" :key="index">
                     <td>{{phone.number}}</td>
                     <td>{{TYPE_LIST.find(t => t.type === phone.type).name}}</td>
