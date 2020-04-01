@@ -20,14 +20,14 @@
     <div v-if="search.length === 0">
       <div class="columns" v-for="(phone, index) in phoneList" :key="index">
         <div class="column is-offset-2 is-8">
-          <phone :data="phone"></phone>
+          <phone-detail :data="phone"></phone-detail>
         </div>
       </div>
     </div>
     <div v-else-if="search.length > 0 && filteredPhoneList.length > 0">
       <div class="columns" v-for="(phone, index) in filteredPhoneList" :key="index">
         <div class="column is-offset-2 is-8">
-          <phone :data="phone"></phone>
+          <phone-detail :data="phone"></phone-detail>
         </div>
       </div>
     </div>
@@ -44,12 +44,12 @@
 </template>
 
 <script>
-import Phone from './Phone'
+import PhoneDetail from './PhoneDetail'
 import axios from '../http/http'
 
 export default {
   components: {
-    Phone
+    PhoneDetail
   },
 
   data() {

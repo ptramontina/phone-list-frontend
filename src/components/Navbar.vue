@@ -47,14 +47,6 @@
           </a>
         </li>
         </router-link>
-        <router-link to="/phones" v-slot="{ href, route, navigate, isActive }">
-        <li :class="isActive ? 'is-active' : ''">          
-          <a @click="navigate">
-            <span class="icon is-small"><i class="fas fa-phone" aria-hidden="true"></i></span>
-            <span>Phones</span>
-          </a>
-        </li>
-        </router-link>
       </ul>
     </div>
   </div>

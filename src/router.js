@@ -4,8 +4,11 @@ import { getToken } from './helpers/local-storage'
 
 import Application from './components/Application'
 import PhoneList from './components/PhoneList'
+
 import Login from './components/Login'
+
 import Phones from './components/Phones'
+import Phone from './components/Phone'
 
 import Users from './components/Users'
 import User from './components/User'
@@ -27,8 +30,21 @@ export const router = new Router({
           component: PhoneList, 
         },      
         {
-          path: '/phones', 
+          path: 'users/:userid/phones', 
           component: Phones, 
+          props: true,
+          meta: { requiresAuth: true } 
+        },
+        {
+          path: 'users/:userid/phones/create', 
+          component: Phone, 
+          props: true,
+          meta: { requiresAuth: true } 
+        },
+        {
+          path: 'users/:userid/phones/:phoneid/edit', 
+          component: Phone, 
+          props: true,
           meta: { requiresAuth: true } 
         },
         {

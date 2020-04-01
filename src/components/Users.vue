@@ -40,17 +40,24 @@
               <td class="has-text-centered">
                 <div class="buttons is-centered are-small">
                   <router-link :to="'users/'+user.id+'/edit'">
-                  <button class="button is-primary">
-                    <span class="icon is-small">
-                      <i class="fas fa-edit"></i>
-                    </span>
-                  </button>
+                    <button class="button is-primary">
+                      <span class="icon is-small">
+                        <i class="fas fa-edit"></i>
+                      </span>
+                    </button>
+                  </router-link>
+                  <router-link :to="'users/'+user.id+'/phones'">
+                    <button class="button is-primary">
+                      <span class="icon is-small">
+                        <i class="fas fa-phone"></i>
+                      </span>
+                    </button>
                   </router-link>
                   <button class="button is-danger" @click.prevent="deleteUser(user.id)">
                     <span class="icon is-small">
                       <i class="fas fa-trash"></i>
                     </span>
-                  </button>
+                  </button>                  
                 </div>
               </td>
             </tr>
@@ -95,7 +102,6 @@ export default {
       })
       .catch(err => {
         console.log(err)
-
       })
     }
   }
