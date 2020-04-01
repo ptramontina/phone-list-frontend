@@ -78,8 +78,9 @@ export default {
 
   watch: {
     'search': function (val) {
+      let valLowerCase = val.toLowerCase()
       this.filteredPhoneList = this.phoneList.filter(pl => {
-        return pl.name.includes(val) || pl.email.includes(val) || (pl.company && pl.company.name.includes(val))
+        return pl.name.toLowerCase().includes(valLowerCase) || pl.email.toLowerCase().includes(valLowerCase) || (pl.company && pl.company.name.toLowerCase().includes(valLowerCase))
       })
     }
   }
