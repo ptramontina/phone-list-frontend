@@ -6,7 +6,7 @@
           <div class="columns">
             <div class="column is-offset-4 is-4">
               <router-link :to="`/users/${userid}/phones/create`">
-                <button class="button is-primary is-fullwidth">
+                <button :class="['button', 'is-primary', 'is-fullwidth', isLoading ? 'is-loading' : '']">
                   <span class="icon">
                     <i class="fas fa-user-plus"></i>
                   </span>
@@ -18,7 +18,7 @@
             </div>
           </div>
 
-          <div class="columns">
+          <div class="columns" v-if="!isLoading">
             <div class="column">
               <table class="table is-bordered is-striped is-hoverable is-fullwidth">
                 <thead>
@@ -28,7 +28,7 @@
                     <th></th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody v-if="phones.lenght > 0">
                   <tr v-for="(phone, index) in phones" :key="index">
                     <td>{{phone.number}}</td>
                     <td>{{TYPE_LIST.find(t => t.type === phone.type).name}}</td>
@@ -50,6 +50,11 @@
                     </td>
                   </tr>
                 </tbody>
+                <tbody v-else>
+                  <tr>
+                    <td colspan="6" class="has-text-centered">No phones found</td>
+                  </tr>
+                </tbody>
               </table>
             </div>
           </div>
@@ -67,17 +72,20 @@ export default {
 
   data() {
     return {
-      phones: []
+      phones: [],
+      isLoading: false
     }
   },
 
   methods: {
     getUserPhones() {
+      this.isLoading = true
       axios.get('user/'+this.userid+'/phone')
       .then(res => {
         this.phones = res.data.phones
       })
       .catch(err => console.log(err))
+      .finally(()=>this.isLoading = false)
     },
     deletePhone (id) {
       axios.delete(`user/${this.userid}/phone/${id}`)

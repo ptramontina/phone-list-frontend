@@ -5,7 +5,7 @@
     <div class="columns">
       <div class="column is-offset-4 is-4">
         <router-link to="users/create">
-          <button class="button is-primary is-fullwidth">
+          <button :class="['button', 'is-primary', 'is-fullwidth', isLoading ? 'is-loading' : '']">
             <span class="icon">
               <i class="fas fa-user-plus"></i>
             </span>
@@ -17,7 +17,7 @@
       </div>
     </div>
 
-    <div class="columns">
+    <div class="columns" v-if="!isLoading">
       <div class="column">
         <table class="table is-bordered is-striped is-hoverable is-fullwidth">
           <thead>
@@ -30,7 +30,7 @@
               <th></th>
             </tr>
           </thead>
-          <tbody>
+          <tbody v-if="users.length > 0">
             <tr v-for="(user, index) in users" :key="index">
               <td>{{user.id}}</td>
               <td>{{user.name}}</td>
@@ -62,6 +62,11 @@
               </td>
             </tr>
           </tbody>
+          <tbody v-else>
+            <tr>
+              <td colspan="6" class="has-text-centered">No users found</td>
+            </tr>
+          </tbody>
         </table>
       </div>
       </div>
@@ -87,6 +92,7 @@ export default {
 
   methods: {
     getUsers () {
+      this.isLoading = true
       axios.get('user')
       .then(res => {
         if (res.data.success) {
@@ -94,6 +100,7 @@ export default {
         }
       })
       .catch(err => console.log(err))
+      .finally(()=>this.isLoading = false)
     },
     deleteUser (id) {
       axios.delete('user/' + id)

@@ -23,7 +23,8 @@
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="buttons">
-              <a class="button is-light" @click.prevent="logOut"> <i class="fas-fa-logout"></i> Log out</a>
+              <a v-if="getToken()" class="button is-light" @click.prevent="logOut">Logout</a>
+              <a v-else class="button is-light" href="/login">Login</a>
             </div>
           </div>
         </div>
@@ -53,7 +54,7 @@
 </template>
 
 <script>
-import { removeToken } from '../helpers/local-storage'
+import { getToken, removeToken } from '../helpers/local-storage'
 export default {
   data() {
     return {
@@ -67,6 +68,11 @@ export default {
     },
     showItems () {
       this.menuActive = !this.menuActive
+    }
+  },
+  computed:{
+    getToken(){
+      return getToken
     }
   }
 };
