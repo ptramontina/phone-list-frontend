@@ -53,7 +53,7 @@
                       </span>
                     </button>
                   </router-link>
-                  <button class="button is-danger" @click.prevent="deleteUser(user.id)">
+                  <button class="button is-danger" @click.prevent="showModal(deleteUser, user.id)">
                     <span class="icon is-small">
                       <i class="fas fa-trash"></i>
                     </span>
@@ -71,13 +71,17 @@
       </div>
       </div>
     </div>
+    <modal></modal>
   </div>
 </template>
 
 <script>
 import axios from '../http/http'
+import Modal from './Modal'
+import Events from '../resources/events'
 export default {
-  props: [],
+  components: { Modal },
+
   data() {
     return {
       users: [],
@@ -88,6 +92,7 @@ export default {
 
   mounted () {
     this.getUsers()
+    Events.$on('confirm', (callback, props) => callback(props))
   },
 
   methods: {
@@ -110,6 +115,9 @@ export default {
       .catch(err => {
         console.log(err)
       })
+    },
+    showModal(callback, props) {
+      Events.$emit('showModal', true, callback, props)
     }
   }
 }

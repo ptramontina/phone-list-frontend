@@ -41,7 +41,7 @@
                           </span>
                         </button>
                         </router-link>
-                        <button class="button is-danger" @click.prevent="deletePhone(phone.id)">
+                        <button class="button is-danger" @click.prevent="showModal(deletePhone, phone.id)">
                           <span class="icon is-small">
                             <i class="fas fa-trash"></i>
                           </span>
@@ -61,14 +61,20 @@
 
       </div>
     </div>
+    <modal></modal>
   </div>
 </template>
 
 <script>
 import axios from '../http/http'
-import { TYPES } from '../helpers/constants'
+import { TYPES } from '../resources/constants'
+import Modal from './Modal'
+import Events from '../resources/events'
+
 export default {
   props: ['userid'],
+
+  components: { Modal },
 
   data() {
     return {
@@ -95,13 +101,17 @@ export default {
       .catch(err => {
         console.log(err)
       })
-    }    
+    },
+    showModal(callback, props) {
+      Events.$emit('showModal', true, callback, props)
+    }
   },
 
   mounted() {
     if(this.userid) {
       this.getUserPhones()
     }
+    Events.$on('confirm', (callback, props) => callback(props))
   },
 
   computed: {

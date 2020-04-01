@@ -64,7 +64,7 @@
 <script>
 import axios from '../http/http'
 import multiselect from 'vue-multiselect' 
-import { TYPES } from '../helpers/constants'
+import { TYPES } from '../resources/constants'
 export default {
   props: ['userid', 'phoneid'],
 
